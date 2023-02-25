@@ -1,24 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route} from 'react-router-dom'
+
+import Confirmation from './pages/confirmation';
+import Contact from './pages/contact';
+import Error from './pages/error';
+import Home from './pages/home';
+import Shop from './pages/shop';
+import Cancel from './pages/cancel';
+import Cart from './pages/checkout'
+import Orders from './pages/orders';
+import { NavHeader,NavFooter } from './components/navbar';
+import { CartProvider } from './REST/cartContext';
+
+
+
 
 function App() {
+ 
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <>
+           <CartProvider>
+            <BrowserRouter>
+              <NavHeader/>
+              <Routes >
+                <Route index element={<Home/>}/>
+                <Route path="success" element={<Confirmation/>}/>
+                <Route path="cancel" element={<Cancel/>}/>
+                <Route path="contact" element={<Contact/>}/>
+                <Route path="shop" element={<Shop/>}/>
+                <Route path="cart" element={<Cart/>}/>
+                <Route index path="admin/dashboard/orders" element={<Orders/>}>
+                  {/* <Route path="new" element={<Orders />}/>
+                  <Route path="inprogress" element={<Orders />}/>
+                  <Route path="shipped" element={<Orders />}/>
+                  <Route path="cancelled" element={<Orders />}/>
+                  <Route path="*" element={<Error/>}/> */}
+                </Route>
+                <Route path="*" element={<Error/>}/>
+              </Routes>
+              <NavFooter/>
+            </BrowserRouter>
+          </CartProvider> 
+          </>
+
   );
 }
 
