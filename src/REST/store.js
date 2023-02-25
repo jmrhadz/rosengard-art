@@ -1,18 +1,18 @@
 const productsArray = [
    
     {
-        id: "1",
+        id: "price_1MfTKxJUAPde3cLuZkUec0Of",
         title: "Alphabet Mug",
         price: 24.99
     },
     {
-        id: "2",
+        id: "price_1MfTNYJUAPde3cLuthVyPU2G",
         title: "Alphabet Print",
         price: 9.99
     },
     {
-        id: "3",
-        title: "Alphabet Towel",
+        id: "price_1MfTOyJUAPde3cLu6c99MnwT",
+        title: "Alphabet Pitcher",
         price: 49.99
     }
 ]

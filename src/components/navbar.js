@@ -14,7 +14,8 @@ export function NavHeader(){
     const cartCount = cart.items.reduce((sum, product) => sum + product.quantity, 0)
 
     const checkout = async () => {
-        await fetch('http://localhost:4000/checkout', {
+        console.log("purchase", cart.items)
+        await fetch('/checkout', {
             method: "POST",
             heades: {
                 'Content-Type': 'application/json'
