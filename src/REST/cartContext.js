@@ -16,7 +16,7 @@ export function CartProvider({children}){
     // fetch orders
 
     function getProductQuantity(id){
-        const quantity = cartProducts.find(product => product.id === id)?.quantity
+        const quantity = cartProducts.find(product => product.price === id)?.quantity
         if(!quantity){
             return 0;
         }
@@ -31,7 +31,7 @@ export function CartProvider({children}){
                 [
                     ...cartProducts,
                     {
-                        id: id,
+                        price: id,
                         quantity: 1
                     }
                 ]
@@ -40,7 +40,7 @@ export function CartProvider({children}){
         } else {
             setCartProducts(
                 cartProducts.map(product => {
-                    if(product.id === id){
+                    if(product.price === id){
                         product.quantity += 1
                         
                         return product;
@@ -61,7 +61,7 @@ export function CartProvider({children}){
         } else {
             setCartProducts(
                 cartProducts.map(product => {
-                    if(product.id === id){
+                    if(product.price === id){
                         product.quantity -= 1
                         
                         return product;
@@ -74,7 +74,7 @@ export function CartProvider({children}){
     }
 
     function deleteFromCart(id){
-        setCartProducts(cartProducts => cartProducts.filter(product => product.id !== id)
+        setCartProducts(cartProducts => cartProducts.filter(product => product.price !== id)
         )
     }
 
@@ -82,8 +82,8 @@ export function CartProvider({children}){
         let totalCost = 0
 
         cartProducts.forEach(cartItem => {
-            const productData = getProductData(cartItem.id)
-            totalCost += (productData.price * cartItem.quantity)
+            const productData = getProductData(cartItem.price)
+            totalCost += (productData.displayPrice * cartItem.quantity)
         })
         return totalCost;
     }

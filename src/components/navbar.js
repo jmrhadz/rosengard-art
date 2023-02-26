@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useState, useContext } from 'react'
 import { CartContext } from '../REST/cartContext'
 import { InCart } from './product'
+import { loadStripe } from '@stripe/stripe-js'
 
 export function NavHeader(){
     const cart = useContext(CartContext)
@@ -13,23 +14,33 @@ export function NavHeader(){
 
     const cartCount = cart.items.reduce((sum, product) => sum + product.quantity, 0)
 
-    const checkout = async () => {
-        console.log("purchase", cart.items)
-        await fetch('/checkout', {
-            method: "POST",
-            heades: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({items: cart.items})
-        }).then((response) => {
-            return response.json();
-        }).then((response) => {
-            if(response.url){
-                window.location.assign(response.url)
-            }
+    // const checkout = async () => {
+    //     console.log("purchase", cart.items)
+    //     await fetch('/checkout', {
+    //         method: "POST",
+    //         heades: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({items: cart.items})
+    //     }).then((response) => {
+    //         return response.json();
+    //     }).then((response) => {
+    //         if(response.url){
+    //             window.location.assign(response.url)
+    //         }
+    //     })
+    // }
+
+    async function handleCheckout(){
+        const stripe = await loadStripe("pk_test_51McO2ZJUAPde3cLuXqp9gR9AyA8tMHVz1qXMTIjJGrK5arnn9ZCGvyV1agJs3gIx8IwHgQHmQuvXBttqxksWD3F100tU319ZXX")
+        const { error } = await stripe.redirectToCheckout({
+            lineItems: [...cart.items],
+            mode: "payment",
+            shippingAddressCollection: true,
+            successUrl: "http://localhost:3000/success",
+            cancelUrl: "http://localhost:3000/cancel"
         })
     }
-
 
     return (
             <>
@@ -37,11 +48,7 @@ export function NavHeader(){
                     <Navbar.Brand>
                         <Link to="/">Rosengard</Link></Navbar.Brand>
                     <Navbar.Toggle />
-                    <Navbar.Collapse className="justify-content-beginning">
-                        <Nav>
-                            <Link to="/contact">Contact</Link>
-                        </Nav>           
-                    </Navbar.Collapse>
+                    
                     <Navbar.Collapse className="justify-content-end">
                         <Button onClick={handleShow}>Cart ({cartCount}) Items</Button>
                         <Link to="/shop">
@@ -60,12 +67,12 @@ export function NavHeader(){
                         <>
                             <p>Items in your cart:</p>
                             {cart.items.map((currentProduct, index) => (
-                                <InCart key={index} id={currentProduct.id} quantity={currentProduct.quantity}></InCart>
+                                <InCart key={index} price={currentProduct.price} quantity={currentProduct.quantity}></InCart>
                             ))}
 
                             <h1>Total: {cart.getTotalCost().toFixed(2)}</h1>
 
-                            <Button variant="success" onClick={checkout}>
+                            <Button variant="success" onClick={handleCheckout}>
                                 Purchase Items
                             </Button>
                         </>
@@ -84,7 +91,7 @@ export function NavHeader(){
 export function NavFooter(){
 
     return <footer>
-        <Link to="/admin/dashboard/orders">Admin Dashboard</Link>
+       <Link to="/contact">Contact Us</Link>
     </footer>
 }
 
