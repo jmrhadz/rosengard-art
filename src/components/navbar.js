@@ -92,6 +92,7 @@ export function NavFooter(){
 
     return <footer>
        <Link to="/contact">Contact Us</Link>
+       <Link to="/dashboard">Admin Use</Link>
     </footer>
 }
 

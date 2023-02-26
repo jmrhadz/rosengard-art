@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react'
 import { Card, Form, Button, Row, Col } from 'react-bootstrap'
+import { contactAPI } from '../REST/contactApi'
 
 function Contact(){
     const [ email, setEmail ] = useState("")
@@ -10,10 +11,20 @@ function Contact(){
     const messageRef = useRef();
 
     const handleSubmit = () => {
-        setEmail(emailRef)
-        setName(nameRef)
-        setMessage(messageRef)
-        console.log(email, name, message)
+        let date = new Date()
+        const message = 
+            {
+                createdAt: date.toDateString(),
+                name: nameRef.current.value,
+                email: emailRef.current.value,
+                message: messageRef.current.value,
+                completed: false
+                
+               }
+        // emailRef.current.value = ""
+        // nameRef.current.value = ""
+        // messageRef.current.value = ""
+        contactAPI.post(message)
     }
 
     return (
@@ -22,12 +33,12 @@ function Contact(){
             <Card.Body>
                 <Form bg="warning">
                     <Row className="m-3" >
-                        <Col><Form.Control ref={emailRef} aria-label="Email address"id="email" type="email" placeholder="Your Email address"/></Col>
-                        <Col><Form.Control ref={nameRef} id="name" aria-label="name"type="text" placeholder="Your Name"/></Col>
+                        <Col><Form.Control ref={emailRef} aria-label="Email address"id="email" type="email" placeholder="Your Email address" required/></Col>
+                        <Col><Form.Control ref={nameRef} id="name" aria-label="name"type="text" placeholder="Your Name" required/></Col>
                         
                     </Row>
                     
-                    <Form.Control ref={messageRef} as="textarea" id="message" aria-label="message"type="textarea" placeholder="How can we help?"/>
+                    <Form.Control ref={messageRef} as="textarea" id="message" aria-label="message"type="textarea" placeholder="How can we help?" required/>
                 </Form>
             </Card.Body>
             <Card.Footer className="justify-content-end">
