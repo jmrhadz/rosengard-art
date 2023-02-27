@@ -53,7 +53,7 @@ export function NavHeader(){
                     <Navbar.Collapse className="justify-content-end">
                         <Button onClick={handleShow} className="btn btn-info">View Cart ({cartCount})</Button>
                         <Link to="/shop">
-                            <Button className="btn btn-black opacity-100">Shop</Button>
+                            <Button className="btn btn-danger opacity-100">Shop</Button>
                         </Link>
                         
                     </Navbar.Collapse>

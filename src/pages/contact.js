@@ -3,7 +3,7 @@ import { Card, Form, Button, Row, Col } from 'react-bootstrap'
 import { contactAPI } from '../REST/contactApi'
 import { redirect } from 'react-router-dom'
 
-function Contact(){
+function Contact({source}){
     const emailRef = useRef();
     const nameRef = useRef();
     const messageRef = useRef();
@@ -16,7 +16,8 @@ function Contact(){
                 name: nameRef.current.value,
                 email: emailRef.current.value,
                 message: messageRef.current.value,
-                completed: false
+                completed: false,
+                source: source ? source : "contact-page"
                }
         emailRef.current.value = ""
         nameRef.current.value = ""

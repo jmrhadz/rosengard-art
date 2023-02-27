@@ -45,13 +45,14 @@ export default function Dashboard(){
                         <th>Name</th>
                         <th>Email</th>
                         <th>Message</th>
+                        <th>Source</th>
                         <th>Completed?</th>
                     </tr>
                 </thead>
                 <tbody>
                     {(loading) 
                     ? <tr><td>Loading...</td></tr> 
-                    : messages.map((el, index) => <Message key={el.id} message={el} index={index} handleCheck={handleCheck} handleDelete={handleDelete} now={now}/>)
+                    : messages.map((el, index) => <Message key={el.id} message={el} index={index} handleCheck={handleCheck} handleDelete={handleDelete}/>)
                     }
                     
                 </tbody>

@@ -1,33 +1,37 @@
 import Carousel from 'react-bootstrap/Carousel';
-import slide1 from '../images/IMG-4381.jpg'
-import slide2 from '../images/IMG-4385.jpg'
-import slide3 from '../images/IMG-4386.jpg'
+import { CartContext } from '../REST/cartContext';
+import { useContext } from 'react';
+import { Button } from 'react-bootstrap';
+
+function ImgCarousel() {
+  const cart = useContext(CartContext)
 
 const slides = [
   {
-    id:1,
+    id:"price_1MfTKxJUAPde3cLuZkUec0Of",
     image: require('../images/IMG-4381.jpg'),
     title:"Everyday beauty",
-    description:"Make your routine extraordinary",
-    link:""
+    description:"Make your routine extraordinary"
   },
   {
-    id:2,
+    id:"price_1MfTOyJUAPde3cLu6c99MnwT",
     image: require('../images/IMG-4385.jpg'),
     title:"Handmade",
-    description:"From our hands to you",
-    link:""
+    description:"From our hands to yours"
   },
   {
-    id:1,
+    id:"price_1MfTNYJUAPde3cLuthVyPU2G",
     image: require('../images/IMG-4386.jpg'),
     title:"Functional art",
-    description:"Art made for use",
-    link:""
+    description:"Art made for use"
   }
 ]
 
-function ImgCarousel() {
+  const handleAdd = (id) => {
+    cart.addOneToCart(id)
+  }
+
+
   return (
     <Carousel fade className="opacity-75">
       {
@@ -39,10 +43,10 @@ function ImgCarousel() {
                 src={slide.image}
                 alt={"Slide "+index}
               />
-              <Carousel.Caption className="bg-dark opacity-75">
+              <Carousel.Caption className="bg-dark">
                 <h3>{slide.title}</h3>
                 <p>{slide.description}.</p>
-                <a className="btn btn-primary" href={slide.link}>Add to Cart</a>
+                <Button onClick={(e)=>handleAdd(slide.id)}>Add to Cart</Button>
               </Carousel.Caption>
             </Carousel.Item>
           )

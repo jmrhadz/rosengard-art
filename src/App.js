@@ -22,7 +22,7 @@ function App() {
            <CartProvider>
             <BrowserRouter>
               <NavHeader/>
-              <div className='pt-5'>
+              <div id="main" className='pt-5 mt-2'>
                 <Routes >
                   <Route index element={<Home/>}/>
                   <Route path="success" element={<Confirmation/>}/>
