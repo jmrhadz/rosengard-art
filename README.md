@@ -13,3 +13,6 @@ See components for more specific TODOs.
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
+You can also view the main branch on [AWS Amplify](main.dt8csgmlx03or.amplifyapp.com/)
+
+
