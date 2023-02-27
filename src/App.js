@@ -18,24 +18,26 @@ function App() {
  
 
   return (
-          <>
+          <div className='overflow-hidden'>
            <CartProvider>
             <BrowserRouter>
               <NavHeader/>
-              <Routes >
-                <Route index element={<Home/>}/>
-                <Route path="success" element={<Confirmation/>}/>
-                <Route path="cancel" element={<Cancel/>}/>
-                <Route path="contact" element={<Contact/>}/>
-                <Route path="shop" element={<Shop/>}/>
-                <Route path="cart" element={<Cart/>}/>
-                <Route path="dashboard" element={<Dashboard/>}/>
-                <Route path="*" element={<Error/>}/>
-              </Routes>
+              <div className='pt-5'>
+                <Routes >
+                  <Route index element={<Home/>}/>
+                  <Route path="success" element={<Confirmation/>}/>
+                  <Route path="cancel" element={<Cancel/>}/>
+                  <Route path="contact" element={<Contact/>}/>
+                  <Route path="shop" element={<Shop/>}/>
+                  <Route path="cart" element={<Cart/>}/>
+                  <Route path="dashboard" element={<Dashboard/>}/>
+                  <Route path="*" element={<Error/>}/>
+                </Routes>
+              </div>
               <NavFooter/>
             </BrowserRouter>
           </CartProvider> 
-          </>
+          </div>
 
   );
 }

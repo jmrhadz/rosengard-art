@@ -1,35 +1,33 @@
 import { useState, useRef } from 'react'
 import { Card, Form, Button, Row, Col } from 'react-bootstrap'
 import { contactAPI } from '../REST/contactApi'
+import { redirect } from 'react-router-dom'
 
 function Contact(){
-    const [ email, setEmail ] = useState("")
-    const [ name, setName ] = useState("")
-    const [ message, setMessage ] = useState("")
     const emailRef = useRef();
     const nameRef = useRef();
     const messageRef = useRef();
 
     const handleSubmit = () => {
-        let date = new Date()
+        
         const message = 
             {
-                createdAt: date.toDateString(),
+                createdAt: new Date(),
                 name: nameRef.current.value,
                 email: emailRef.current.value,
                 message: messageRef.current.value,
                 completed: false
-                
                }
-        // emailRef.current.value = ""
-        // nameRef.current.value = ""
-        // messageRef.current.value = ""
+        emailRef.current.value = ""
+        nameRef.current.value = ""
+        messageRef.current.value = ""
         contactAPI.post(message)
+               .then(redirect('./success'))
     }
 
     return (
         <Card bg='secondary' className="shadow">
-            <Card.Header><h2>Contact Us {email} {name} {message}</h2></Card.Header>
+            <Card.Header><h2>Contact Us</h2></Card.Header>
             <Card.Body>
                 <Form bg="warning">
                     <Row className="m-3" >

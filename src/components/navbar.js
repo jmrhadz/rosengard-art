@@ -36,23 +36,24 @@ export function NavHeader(){
         const { error } = await stripe.redirectToCheckout({
             lineItems: [...cart.items],
             mode: "payment",
-            shippingAddressCollection: true,
+            shippingAddressCollection: {allowedCountries:["US"]},
             successUrl: "http://localhost:3000/success",
             cancelUrl: "http://localhost:3000/cancel"
         })
+        console.log(error)
     }
 
     return (
             <>
-                <Navbar bg="primary" expand="sm" className="shadow px-3">
+                <Navbar bg="primary" expand="sm" className="shadow px-3 fixed-top opacity-75">
                     <Navbar.Brand>
                         <Link to="/">Rosengard</Link></Navbar.Brand>
                     <Navbar.Toggle />
                     
                     <Navbar.Collapse className="justify-content-end">
-                        <Button onClick={handleShow}>Cart ({cartCount}) Items</Button>
+                        <Button onClick={handleShow} className="btn btn-info">View Cart ({cartCount})</Button>
                         <Link to="/shop">
-                            <Button className="btn btn-secondary">Buy Now</Button>
+                            <Button className="btn btn-black opacity-100">Shop</Button>
                         </Link>
                         
                     </Navbar.Collapse>
@@ -90,9 +91,9 @@ export function NavHeader(){
 
 export function NavFooter(){
 
-    return <footer>
-       <Link to="/contact">Contact Us</Link>
-       <Link to="/dashboard">Admin Use</Link>
+    return <footer className='d-flex flex-row-reverse justify-content-around fixed-bottom bg-light opacity-75'>
+       <Link to="/contact" className='px-1'>Contact Us</Link>
+       <Link to="/dashboard" className='px-1'>Admin Use</Link>
     </footer>
 }
 

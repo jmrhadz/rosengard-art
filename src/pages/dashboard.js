@@ -5,14 +5,35 @@ import { Table } from "react-bootstrap";
 
 export default function Dashboard(){
     const [messages, setMessages] = useState([])
+    const [loading, setLoading ] = useState(true)
+    const [now, setNow] = useState(new Date())
+
     useEffect(()=>{
-        const fetchData = async () => {
-            const data = await contactAPI.get();
-            setMessages(data)
-        }
         fetchData()
         console.log(messages)
-    },[])
+    }, [])
+
+    const fetchData = async () => {
+        setMessages(await contactAPI.get()) ;
+        if(messages) setLoading(false)
+    }
+    
+    const handleCheck = async (id) => {
+        setLoading(true)
+       console.log("check change", id)
+       const message = messages.find(msg => msg.id===id)
+       console.log(message)
+       message.completed = !message.completed;
+       console.log(message.completed)
+       await contactAPI.put(message)
+        .then(fetchData())
+    }
+
+    const handleDelete = async (id) => {
+        setLoading(true)
+        await contactAPI.delete(id)
+            .then(fetchData())
+    }
 
     return(
         <>
@@ -28,10 +49,10 @@ export default function Dashboard(){
                     </tr>
                 </thead>
                 <tbody>
-                    {messages ? messages.forEach(message => (
-                       <Message key={message.id}/>
-                    ))
-                    : <td>Loading...</td>}
+                    {(loading) 
+                    ? <tr><td>Loading...</td></tr> 
+                    : messages.map((el, index) => <Message key={el.id} message={el} index={index} handleCheck={handleCheck} handleDelete={handleDelete} now={now}/>)
+                    }
                     
                 </tbody>
             </Table>

@@ -4,6 +4,7 @@ class ContactApi {
     get = async () => {
         try { const resp = await fetch(ENDPOINT)
             const data = await resp.json()
+            console.log("getting data", data)
             return data;
         } catch(e) {
             console.log('fetch messages had an issue', e)
@@ -32,7 +33,8 @@ class ContactApi {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            body: JSON.stringify(message)
         })
         return await resp.json()
         } catch (e) {
@@ -40,9 +42,9 @@ class ContactApi {
         }
     }
 
-    delete = async (message) => {
-        console.log("api: deleting", message.name)
-        try{const resp = await fetch(`${ENDPOINT}/${message.id}`, {
+    delete = async (id) => {
+        console.log("api: deleting", id)
+        try{const resp = await fetch(`${ENDPOINT}/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
