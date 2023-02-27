@@ -3,6 +3,14 @@ import { CartContext } from "../REST/cartContext"
 import { useContext } from "react"
 import { getProductData } from "../REST/store"
 
+// the product card displays basic product information
+// product detail should link to more details for a product
+// and in cart shows basic cart info
+
+// TODO: add product photos to card
+// TODO: add number selecter instead of +/-
+// TODO: link to a detail page so that more information can be displayed
+
 function ProductCard({ product }){
     const cart = useContext(CartContext)
     const quantityInCart = cart.getProductQuantity(product.price)
@@ -33,10 +41,15 @@ function ProductCard({ product }){
     )
 }
 
-function ProductDetail({ product }){
 
-    return <h1>Product Detail Page</h1>
-}
+// TODO:
+// function ProductDetail({ product }){
+
+//     return <h1>Product Detail Page</h1>
+// }
+
+
+// InCart displays quantity and subtotal and allows the user to delete/remove the item fom the cart
 
 function InCart({ price, quantity }){
     const cart = useContext(CartContext)
@@ -54,4 +67,4 @@ function InCart({ price, quantity }){
     )
 }
 
-export { ProductCard, ProductDetail, InCart }
+export { ProductCard, InCart }

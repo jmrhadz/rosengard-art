@@ -1,6 +1,12 @@
 const ENDPOINT = 'https://63f90a6fc98167fcb469c371.mockapi.io/contacts'
 
+
+// contains CRUD operations for the contact form's messages
+
+
 class ContactApi {
+
+    // READ all
     get = async () => {
         try { const resp = await fetch(ENDPOINT)
             const data = await resp.json()
@@ -11,7 +17,7 @@ class ContactApi {
         }
     }
 
-
+    // UPDATE
     put = async (message) => {
         console.log("api: updating", message.name)
         try {const resp = await fetch(`${ENDPOINT}/${message.id}`, {
@@ -27,6 +33,7 @@ class ContactApi {
         }
     }
 
+    // CREATE
     post = async (message) => {
         console.log("api: creating", message)
         try{const resp = await fetch(ENDPOINT, {
@@ -42,6 +49,7 @@ class ContactApi {
         }
     }
 
+    // DELETE
     delete = async (id) => {
         console.log("api: deleting", id)
         try{const resp = await fetch(`${ENDPOINT}/${id}`, {

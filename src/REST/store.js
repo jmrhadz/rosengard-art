@@ -1,3 +1,10 @@
+
+// this stores the products available and a function to get the title and price
+// Stripe wants the id labeled as "price", so instead of parsing it in the call, it's set here
+// Prices here only matter in the cart. Stripe will use prices on its dashboard as the final price
+
+// TODO: add images, blurbs and detailed descriptions
+
 const productsArray = [
    
     {

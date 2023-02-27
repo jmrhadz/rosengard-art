@@ -1,36 +1,32 @@
-import { Button, Navbar, Modal, Nav } from 'react-bootstrap'
+import { Button, Navbar, Modal } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { useState, useContext } from 'react'
 import { CartContext } from '../REST/cartContext'
 import { InCart } from './product'
 import { loadStripe } from '@stripe/stripe-js'
 
+// A lot of stuff happens in the Navbar: The navbar, the shopping cart modal and the footer are contained in this document
+// The cart uses a context hook to update the quantity and state hooks to be visible
+
+//TODO: isolate the shopping cart modal from the navbar
+//TODO: On the shop page, the Call To Action in the navbar (the shop button) should start the checkout process
+//TODO: integrate stripe components so that checkout is happening on site, not on a different domain
+//   (sideTODO:) This could also help with getting the checkout info (minus the tokenized CC info) from Stripe to integrate into the admin dashboard
+
 export function NavHeader(){
+
+    // cart context imported from provider
     const cart = useContext(CartContext)
 
+    // Initializing the shopping cart visibility and the handlers
     const [ showCart, setShowCart ] = useState(false)
     const handleClose = () => setShowCart(false)
     const handleShow = () => setShowCart(true)
 
+    // calculating the total qauntity of items in cart
     const cartCount = cart.items.reduce((sum, product) => sum + product.quantity, 0)
 
-    // const checkout = async () => {
-    //     console.log("purchase", cart.items)
-    //     await fetch('/checkout', {
-    //         method: "POST",
-    //         heades: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({items: cart.items})
-    //     }).then((response) => {
-    //         return response.json();
-    //     }).then((response) => {
-    //         if(response.url){
-    //             window.location.assign(response.url)
-    //         }
-    //     })
-    // }
-
+    // handle the checkout > redirect to a stripe checkout session, redirect to success and confirmation pages
     async function handleCheckout(){
         const stripe = await loadStripe("pk_test_51McO2ZJUAPde3cLuXqp9gR9AyA8tMHVz1qXMTIjJGrK5arnn9ZCGvyV1agJs3gIx8IwHgQHmQuvXBttqxksWD3F100tU319ZXX")
         const { error } = await stripe.redirectToCheckout({
@@ -77,17 +73,17 @@ export function NavHeader(){
                                 Purchase Items
                             </Button>
                         </>
-                    :
-                        <h1>There are no items in your cart!</h1>
-                
+                    : <h1>There are no items in your cart!</h1>
                 }
                     </Modal.Body>
-
                 </Modal>
-
             </>
         )
 }
+
+
+// the footer currently only provides links to the contact page and the admin dashboard
+// TODO: add social links and about links
 
 export function NavFooter(){
 
@@ -96,8 +92,4 @@ export function NavFooter(){
        <Link to="/dashboard" className='px-1'>Admin Use</Link>
     </footer>
 }
-
-// links to home, shop, checkout
-// cart modal
-
 

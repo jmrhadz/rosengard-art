@@ -1,12 +1,12 @@
+// TODO:
 
+// function Cart(){
 
-function Cart(){
+//     return <h1> Cart </h1>
+// }
 
-    return <h1> Cart </h1>
-}
+// //Product list
+// //purchase price
+// //checkout price
 
-//Product list
-//purchase price
-//checkout price
-
-export default Cart
+// export default Cart

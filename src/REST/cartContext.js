@@ -1,6 +1,10 @@
 import { createContext, useState } from 'react'
 import { getProductData } from './store'
 
+// provides context for the shopping cart, including the list of items in cart and the cart's CRUD operations
+
+// TODO: either save the cart items as a cookie or store it for cart recovery features
+
 export const CartContext = createContext({
     items: [],
     getProductQuantity: () => {},
@@ -10,11 +14,13 @@ export const CartContext = createContext({
     getTotalCost: () => {}
 })
 
+// provides the cart context to all children
 export function CartProvider({children}){
+
+    // Empties the cart on refresh.  This would be handy to keep as a cookie
     const [ cartProducts, setCartProducts ] = useState([])
 
-    // fetch orders
-
+    // READ quantity in cart
     function getProductQuantity(id){
         const quantity = cartProducts.find(product => product.price === id)?.quantity
         if(!quantity){
@@ -23,9 +29,11 @@ export function CartProvider({children}){
         return quantity;
     }
 
+    // CREATE item in cart, or UPDATE item in cart (+1)
     function addOneToCart(id){
         const quantity = getProductQuantity(id)
 
+        // if product not found, add product object
         if (quantity === 0){
             setCartProducts(
                 [
@@ -36,7 +44,7 @@ export function CartProvider({children}){
                     }
                 ]
             )
-            
+        // otherwise add one to the product quantity
         } else {
             setCartProducts(
                 cartProducts.map(product => {
@@ -53,11 +61,14 @@ export function CartProvider({children}){
         }
     }
 
+    // DELETE item from cart or UPDATE product quantity (-1)
     function removeOneFromCart(id){
         const quantity = getProductQuantity(id)
 
+        // if there's only one, DELETE
         if(quantity === 1) {
             deleteFromCart(id)
+        // otherwise take one away from quantity
         } else {
             setCartProducts(
                 cartProducts.map(product => {
@@ -73,11 +84,13 @@ export function CartProvider({children}){
         }
     }
 
+    //DELETE item from cart
     function deleteFromCart(id){
         setCartProducts(cartProducts => cartProducts.filter(product => product.price !== id)
         )
     }
 
+    // READ total cost
     function getTotalCost(){
         let totalCost = 0
 
@@ -87,7 +100,7 @@ export function CartProvider({children}){
         })
         return totalCost;
     }
-
+    
     const contextValue = {
         items: cartProducts,
         getProductQuantity,

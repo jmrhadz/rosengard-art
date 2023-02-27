@@ -1,4 +1,5 @@
 
+// Documentation not found
 
 function Error(){
 
@@ -10,6 +11,5 @@ function Error(){
     )
 }
 
-// contact
 
 export default Error

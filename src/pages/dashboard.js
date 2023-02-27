@@ -3,21 +3,30 @@ import {useState, useEffect} from 'react';
 import { contactAPI } from "../REST/contactApi";
 import { Table } from "react-bootstrap";
 
+// The dashboard allows the admin to view messages submitted through the contact form
+
+//TODO: get the component to render after messages are updated or deleted
+//TODO: after onsite checkout is integrated, add orders tab where admin can CRUD orders as well
+
 export default function Dashboard(){
+    // holds the data
     const [messages, setMessages] = useState([])
     const [loading, setLoading ] = useState(true)
-    const [now, setNow] = useState(new Date())
 
+    //initial data fetch
     useEffect(()=>{
         fetchData()
         console.log(messages)
     }, [])
 
+    // READ, then set loading state to false
     const fetchData = async () => {
         setMessages(await contactAPI.get()) ;
         if(messages) setLoading(false)
     }
     
+    // handles the "Completed?" checkbox in each message
+    // UPDATES the message with new status, fetches new data
     const handleCheck = async (id) => {
         setLoading(true)
        console.log("check change", id)
@@ -29,6 +38,8 @@ export default function Dashboard(){
         .then(fetchData())
     }
 
+    // handles deleting spam messages
+    // DELETES the message then fetches new data
     const handleDelete = async (id) => {
         setLoading(true)
         await contactAPI.delete(id)

@@ -12,7 +12,7 @@ import { NavHeader,NavFooter } from './components/navbar';
 import { CartProvider } from './REST/cartContext';
 
 
-
+// The cartprovider wraps everything so that the cart is available no matter where in the app the user is
 
 function App() {
  

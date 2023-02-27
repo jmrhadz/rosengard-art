@@ -3,6 +3,10 @@ import { CartContext } from '../REST/cartContext';
 import { useContext } from 'react';
 import { Button } from 'react-bootstrap';
 
+
+//provides carousel for hero image with current slides.
+//TODO: pass slides in as props to make component reusable
+
 function ImgCarousel() {
   const cart = useContext(CartContext)
 
@@ -26,7 +30,7 @@ const slides = [
     description:"Art made for use"
   }
 ]
-
+// user can add the currently seen product to cart
   const handleAdd = (id) => {
     cart.addOneToCart(id)
   }

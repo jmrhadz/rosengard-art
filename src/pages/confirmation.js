@@ -1,6 +1,9 @@
 import { Card } from "react-bootstrap"
 import { Link } from "react-router-dom"
 
+// Stripe redirects to this page after a successful checkout session
+
+// TODO: after checkout is onsite, display name, order number, etc
 
 function Confirmation(){
 
@@ -16,8 +19,6 @@ function Confirmation(){
                  </Card.Body>
             </Card>
         </div>
-        
-   
     )
 }
 

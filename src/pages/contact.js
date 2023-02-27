@@ -1,13 +1,23 @@
-import { useState, useRef } from 'react'
+import { useRef } from 'react'
 import { Card, Form, Button, Row, Col } from 'react-bootstrap'
 import { contactAPI } from '../REST/contactApi'
 import { redirect } from 'react-router-dom'
 
+// Here's a contact form that allows the admin CRUD operations through contactApi (currently using mockAPI, ugh)
+// It passes the user input (name, email, message) and administrative info (creation date, progress boolean, and the source page)
+
+// TODO: migrate to another backend
+// TODO: add client-side validation, particularily for the email input
+// TODO: add phone number and recaptcha
+
 function Contact({source}){
+
+    // use ref hooks so the component doesn't rerender on every key press
     const emailRef = useRef();
     const nameRef = useRef();
     const messageRef = useRef();
 
+    // POST on submit
     const handleSubmit = () => {
         
         const message = 
@@ -18,10 +28,14 @@ function Contact({source}){
                 message: messageRef.current.value,
                 completed: false,
                 source: source ? source : "contact-page"
-               }
+            }
+        
+        //reset forms
         emailRef.current.value = ""
         nameRef.current.value = ""
         messageRef.current.value = ""
+
+        // POST to backend
         contactAPI.post(message)
                .then(redirect('./success'))
     }
@@ -46,7 +60,5 @@ function Contact({source}){
         </Card>
         )
 }
-
-// form includes: email address, name, message, submit button
 
 export default Contact

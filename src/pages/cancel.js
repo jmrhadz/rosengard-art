@@ -1,6 +1,12 @@
 import { Card } from "react-bootstrap"
 import Contact from "./contact"
 
+// The cancel page is a landing page for stripe checkout redirects.  If the user leaves a stripe session, this page is displayed
+// it contains a contact form in the card footer that passes "cancel" as the source, so that contact from this page can be highlighted
+
+//TODO:  save cart for later
+//TODO: add some sort of are you sure with shiny, happy people using products
+
 function Cancel(){
 
     return (
@@ -14,6 +20,5 @@ function Cancel(){
     )
 }
 
-// contact page
 
 export default Cancel
