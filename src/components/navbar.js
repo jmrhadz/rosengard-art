@@ -34,7 +34,7 @@ export function NavHeader(){
             mode: "payment",
             shippingAddressCollection: {allowedCountries:["US"]},
             successUrl: "https://www.rosengard.co/success",
-            cancelUrl: "https://www.rosengard./cancel"
+            cancelUrl: "https://www.rosengard.co/cancel"
         })
         console.log(error)
     }
