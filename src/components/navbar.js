@@ -33,8 +33,8 @@ export function NavHeader(){
             lineItems: [...cart.items],
             mode: "payment",
             shippingAddressCollection: {allowedCountries:["US"]},
-            successUrl: "http://localhost:3000/success",
-            cancelUrl: "http://localhost:3000/cancel"
+            successUrl: "https://www.rosengard.co/success",
+            cancelUrl: "https://www.rosengard./cancel"
         })
         console.log(error)
     }
